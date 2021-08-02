@@ -13,6 +13,11 @@ export default class Board extends React.Component {
     gameStatus: "Game in progress",
     mineCount: this.props.mines,
     gameStart: true,
+    span: (
+      <button onClick={() => this.restart(this.state.boardData)}>
+        Play Again?
+      </button>
+    ),
   };
 
   /* Helper Functions */
@@ -307,40 +312,19 @@ export default class Board extends React.Component {
   }
 
   render() {
-    if (this.state.gameStart) {
-      return (
-        <div className="board">
-          <div className="game-info">
-            <h1>Minesweeper</h1>
-            <span className="info">
-              Mines remaining: {this.state.mineCount}
-            </span>
-            <h3 className="info">{this.state.gameStatus}</h3>
+    return (
+      <div className="board">
+        <div className="game-info">
+          <h1>Minesweeper</h1>
+          <span className="info">Mines remaining: {this.state.mineCount}</span>
+          <h3 className="info">{this.state.gameStatus}</h3>
+          <div className="play">
+            {!this.state.gameStart && this.state.span}
           </div>
-          {this.renderBoard(this.state.boardData)}
         </div>
-      );
-    } else {
-      return (
-        <div className="board">
-          <div className="game-info">
-            <h1>Minesweeper</h1>
-            <span className="info">
-              Mines remaining: {this.state.mineCount}
-            </span>
-            <h3 className="info">{this.state.gameStatus}</h3>
-          </div>
-          <div className="popup-container" style={{ display: "flex" }}>
-            <div className="popup">
-              <button onClick={() => this.restart(this.state.boardData)}>
-                Play Again?
-              </button>
-            </div>
-          </div>
-          {this.renderBoard(this.state.boardData)}
-        </div>
-      );
-    }
+        {this.renderBoard(this.state.boardData)}
+      </div>
+    );
   }
 }
 

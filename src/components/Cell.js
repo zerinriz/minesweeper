@@ -7,9 +7,13 @@ export default class Cell extends React.Component {
     if (!value.isRevealed) {
       return this.props.value.isFlagged ? "🚩" : null;
     }
+    if (value.isMine && value.isFlagged) {
+      return "🚩";
+    }
     if (value.isMine) {
       return "💣";
     }
+
     if (value.neighbour === 0) {
       return null;
     }
